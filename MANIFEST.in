@@ -5,7 +5,7 @@ include *.md
 include *.py
 graft cmaprsrc
 graft docs
-graft pdfminer
+graft pdfminer3
 graft samples
 graft tools
 global-exclude *.pyc

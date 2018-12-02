@@ -8,13 +8,13 @@
 #    -i objid : object id
 #
 import sys, os.path, re, logging
-from pdfminer.psparser import PSKeyword, PSLiteral, LIT
-from pdfminer.pdfparser import PDFParser
-from pdfminer.pdfdocument import PDFDocument, PDFNoOutlines
-from pdfminer.pdftypes import PDFObjectNotFound, PDFValueError
-from pdfminer.pdftypes import PDFStream, PDFObjRef, resolve1, stream_value
-from pdfminer.pdfpage import PDFPage
-from pdfminer.utils import isnumber
+from pdfminer3.psparser import PSKeyword, PSLiteral, LIT
+from pdfminer3.pdfparser import PDFParser
+from pdfminer3.pdfdocument import PDFDocument, PDFNoOutlines
+from pdfminer3.pdftypes import PDFObjectNotFound, PDFValueError
+from pdfminer3.pdftypes import PDFStream, PDFObjRef, resolve1, stream_value
+from pdfminer3.pdfpage import PDFPage
+from pdfminer3.utils import isnumber
 
 
 ESC_PAT = re.compile(r'[\000-\037&<>()"\042\047\134\177-\377]')

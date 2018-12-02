@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 
-# Exercise pdfminer, looking deeply into a PDF document, print some stats to stdout
+# Exercise pdfminer3, looking deeply into a PDF document, print some stats to stdout
 # Usage: pdfstats.py <PDF-filename>
 
 import sys, os
 import collections
 
-from pdfminer.pdfparser import PDFParser
-from pdfminer.pdfdocument import PDFDocument
-from pdfminer.pdfpage import PDFPage, PDFTextExtractionNotAllowed
-from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
-from pdfminer.pdfdevice import PDFDevice
-from pdfminer.converter import PDFPageAggregator
-from pdfminer.layout import LAParams, LTContainer
+from pdfminer3.pdfparser import PDFParser
+from pdfminer3.pdfdocument import PDFDocument
+from pdfminer3.pdfpage import PDFPage, PDFTextExtractionNotAllowed
+from pdfminer3.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer3.pdfdevice import PDFDevice
+from pdfminer3.converter import PDFPageAggregator
+from pdfminer3.layout import LAParams, LTContainer
 
 
 _, SCRIPT = os.path.split(__file__)

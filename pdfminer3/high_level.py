@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Functions that encapsulate "usual" use-cases for pdfminer, for use making
-bundled scripts and for using pdfminer as a module for routine tasks.
+Functions that encapsulate "usual" use-cases for pdfminer3, for use making
+bundled scripts and for using pdfminer3 as a module for routine tasks.
 """
 
 import six
@@ -28,17 +28,17 @@ def extract_text_to_fp(inf, outfp,
     Takes loads of optional arguments but the defaults are somewhat sane.
     Beware laparams: Including an empty LAParams is not the same as passing None!
     Returns nothing, acting as it does on two streams. Use StringIO to get strings.
-    
+
     output_type: May be 'text', 'xml', 'html', 'tag'. Only 'text' works properly.
     codec: Text decoding codec
-    laparams: An LAParams object from pdfminer.layout.
+    laparams: An LAParams object from pdfminer3.layout.
         Default is None but may not layout correctly.
     maxpages: How many pages to stop parsing after
     page_numbers: zero-indexed page numbers to operate on.
     password: For encrypted PDFs, the password to decrypt.
     scale: Scale factor
     rotation: Rotation factor
-    layoutmode: Default is 'normal', see pdfminer.converter.HTMLConverter
+    layoutmode: Default is 'normal', see pdfminer3.converter.HTMLConverter
     output_dir: If given, creates an ImageWriter for extracted images.
     strip_control: Does what it says on the tin
     debug: Output more logging data
@@ -50,7 +50,7 @@ def extract_text_to_fp(inf, outfp,
     imagewriter = None
     if output_dir:
         imagewriter = ImageWriter(output_dir)
-    
+
     rsrcmgr = PDFResourceManager(caching=not disable_caching)
 
     if output_type == 'text':
@@ -79,6 +79,6 @@ def extract_text_to_fp(inf, outfp,
                                   caching=not disable_caching,
                                   check_extractable=True):
         page.rotate = (page.rotate + rotation) % 360
-        interpreter.process_page(page)    
+        interpreter.process_page(page)
 
     device.close()

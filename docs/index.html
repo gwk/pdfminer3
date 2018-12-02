@@ -3,7 +3,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>PDFMiner</title>
+<title>pdfminer3</title>
 </head>
 <body>
 
@@ -13,30 +13,28 @@ Last Modified: Wed Jun 25 10:27:52 UTC 2014
 <!-- hhmts end -->
 </div>
 
-<h1>PDFMiner</h1>
+<h1>pdfminer3</h1>
 <p>
 Python PDF parser and analyzer
 
 <p>
-<a href="http://www.unixuser.org/~euske/python/pdfminer/index.html">Homepage</a>
-&nbsp;
 <a href="#changes">Recent Changes</a>
 &nbsp;
-<a href="programming.html">PDFMiner API</a>
+<a href="programming.html">pdfminer3 API</a>
 
 <ul>
 <li> <a href="#intro">What's It?</a>
 <li> <a href="#download">Download</a>
 <li> <a href="#wheretoask">Where to Ask</a>
-<li> <a href="#install">How to Install</a> 
-  <ul> 
+<li> <a href="#install">How to Install</a>
+  <ul>
     <li> <a href="#cmap">CJK languages support</a>
   </ul>
 <li> <a href="#tools">Command Line Tools</a>
   <ul>
     <li> <a href="#pdf2txt">pdf2txt.py</a>
     <li> <a href="#dumppdf">dumppdf.py</a>
-    <li> <a href="programming.html">PDFMiner API</a>
+    <li> <a href="programming.html">pdfminer3 API</a>
   </ul>
 <li> <a href="#changes">Changes</a>
 <li> <a href="#todo">TODO</a>
@@ -46,10 +44,10 @@ Python PDF parser and analyzer
 
 <h2><a name="intro">What's It?</a></h2>
 <p>
-PDFMiner is a tool for extracting information from PDF documents.
-Unlike other PDF-related tools, it focuses entirely on getting 
-and analyzing text data. PDFMiner allows one to obtain
-the exact location of text in a page, as well as 
+pdfminer3 is a tool for extracting information from PDF documents.
+Unlike other PDF-related tools, it focuses entirely on getting
+and analyzing text data. pdfminer3 allows one to obtain
+the exact location of text in a page, as well as
 other information such as fonts or lines.
 It includes a PDF converter that can transform PDF files
 into other text formats (such as HTML). It has an extensible
@@ -70,7 +68,7 @@ PDF parser that can be used for other purposes than text analysis.
 <li> Reconstruct the original layout by grouping text chunks.
 </ul>
 <p>
-PDFMiner is about 20 times slower than 
+pdfminer3 is about 20 times slower than
 other C/C++-based counterparts such as XPdf.
 
 <P>
@@ -82,14 +80,14 @@ http://pdf2html.tabesugi.net:8080/
 <h3><a name="download">Download</a></h3>
 <p>
 <strong>Source distribution:</strong><br>
-<a href="http://pypi.python.org/pypi/pdfminer_six/">
-http://pypi.python.org/pypi/pdfminer_six/
+<a href="http://pypi.python.org/pypi/pdfminer3/">
+http://pypi.python.org/pypi/pdfminer3/
 </a>
 
 <P>
 <strong>github:</strong><br>
-<a href="https://github.com/goulu/pdfminer/">
-https://github.com/goulu/pdfminer/
+<a href="https://github.com/gwk/pdfminer3/">
+https://github.com/gwk/pdfminer3/
 </a>
 
 <h3><a name="wheretoask">Where to Ask</a></h3>
@@ -103,7 +101,7 @@ http://groups.google.com/group/pdfminer-users/
 <h2><a name="install">How to Install</a></h2>
 <ol>
 <li> Install <a href="http://www.python.org/download/">Python</a> 2.6 or newer.
-<li> Download the <a href="#source">PDFMiner source</a>.
+<li> Download the <a href="#source">pdfminer3 source</a>.
 <li> Unpack it.
 <li> Run <code>setup.py</code> to install:<br>
 <blockquote><pre>
@@ -137,7 +135,7 @@ In order to process CJK languages, you need an additional step to take
 during installation:
 <blockquote><pre>
 # <strong>make cmap</strong>
-python tools/conv_cmap.py pdfminer/cmap Adobe-CNS1 cmaprsrc/cid2code_Adobe_CNS1.txt
+python tools/conv_cmap.py pdfminer3/cmap Adobe-CNS1 cmaprsrc/cid2code_Adobe_CNS1.txt
 reading 'cmaprsrc/cid2code_Adobe_CNS1.txt'...
 writing 'CNS1_H.py'...
 ...
@@ -147,20 +145,20 @@ writing 'CNS1_H.py'...
 </pre></blockquote>
 
 <p>
-On Windows machines which don't have <code>make</code> command, 
+On Windows machines which don't have <code>make</code> command,
 paste the following commands on a command line prompt:
 <blockquote><pre>
-<strong>mkdir pdfminer\cmap</strong>
-<strong>python tools\conv_cmap.py -c B5=cp950 -c UniCNS-UTF8=utf-8 pdfminer\cmap Adobe-CNS1 cmaprsrc\cid2code_Adobe_CNS1.txt</strong>
-<strong>python tools\conv_cmap.py -c GBK-EUC=cp936 -c UniGB-UTF8=utf-8 pdfminer\cmap Adobe-GB1 cmaprsrc\cid2code_Adobe_GB1.txt</strong>
-<strong>python tools\conv_cmap.py -c RKSJ=cp932 -c EUC=euc-jp -c UniJIS-UTF8=utf-8 pdfminer\cmap Adobe-Japan1 cmaprsrc\cid2code_Adobe_Japan1.txt</strong>
-<strong>python tools\conv_cmap.py -c KSC-EUC=euc-kr -c KSC-Johab=johab -c KSCms-UHC=cp949 -c UniKS-UTF8=utf-8 pdfminer\cmap Adobe-Korea1 cmaprsrc\cid2code_Adobe_Korea1.txt</strong>
+<strong>mkdir pdfminer3\cmap</strong>
+<strong>python tools\conv_cmap.py -c B5=cp950 -c UniCNS-UTF8=utf-8 pdfminer3\cmap Adobe-CNS1 cmaprsrc\cid2code_Adobe_CNS1.txt</strong>
+<strong>python tools\conv_cmap.py -c GBK-EUC=cp936 -c UniGB-UTF8=utf-8 pdfminer3\cmap Adobe-GB1 cmaprsrc\cid2code_Adobe_GB1.txt</strong>
+<strong>python tools\conv_cmap.py -c RKSJ=cp932 -c EUC=euc-jp -c UniJIS-UTF8=utf-8 pdfminer3\cmap Adobe-Japan1 cmaprsrc\cid2code_Adobe_Japan1.txt</strong>
+<strong>python tools\conv_cmap.py -c KSC-EUC=euc-kr -c KSC-Johab=johab -c KSCms-UHC=cp949 -c UniKS-UTF8=utf-8 pdfminer3\cmap Adobe-Korea1 cmaprsrc\cid2code_Adobe_Korea1.txt</strong>
 <strong>python setup.py install</strong>
 </pre></blockquote>
 
 <h2><a name="tools">Command Line Tools</a></h2>
 <p>
-PDFMiner comes with two handy tools:
+pdfminer3 comes with two handy tools:
 <code>pdf2txt.py</code> and <code>dumppdf.py</code>.
 
 <h3><a name="pdf2txt">pdf2txt.py</a></h3>
@@ -192,19 +190,19 @@ $ <strong>pdf2txt.py -P mypassword -o output.txt secret.pdf</strong>
 
 <h4>Options</h4>
 <dl>
-<dt> <code>-o <em>filename</em></code> 
+<dt> <code>-o <em>filename</em></code>
 <dd> Specifies the output file name.
 By default, it prints the extracted contents to stdout in text format.
 <p>
-<dt> <code>-p <em>pageno[,pageno,...]</em></code> 
-<dd> Specifies the comma-separated list of the page numbers to be extracted. 
+<dt> <code>-p <em>pageno[,pageno,...]</em></code>
+<dd> Specifies the comma-separated list of the page numbers to be extracted.
 Page numbers start at one.
 By default, it extracts text from all the pages.
 <p>
-<dt> <code>-c <em>codec</em></code> 
+<dt> <code>-c <em>codec</em></code>
 <dd> Specifies the output codec.
 <p>
-<dt> <code>-t <em>type</em></code> 
+<dt> <code>-t <em>type</em></code>
 <dd> Specifies the output format. The following formats are currently supported.
 <ul>
 <li> <code>text</code> : TEXT format. (Default)
@@ -215,13 +213,13 @@ HTML-like tags. pdf2txt tries to extract its content streams rather than inferri
 Tags used here are defined in the PDF specification (See &sect;10.7 "<em>Tagged PDF</em>").
 </ul>
 <p>
-<dt> <code>-I <em>image_directory</em></code> 
+<dt> <code>-I <em>image_directory</em></code>
 <dd> Specifies the output directory for image extraction.
 Currently only JPEG images are supported.
 <p>
-<dt> <code>-M <em>char_margin</em></code> 
-<dt> <code>-L <em>line_margin</em></code> 
-<dt> <code>-W <em>word_margin</em></code> 
+<dt> <code>-M <em>char_margin</em></code>
+<dt> <code>-L <em>line_margin</em></code>
+<dt> <code>-W <em>word_margin</em></code>
 <dd> These are the parameters used for layout analysis.
 In an actual PDF file, text portions might be split into several chunks
 in the middle of its running, depending on the authoring software.
@@ -232,12 +230,12 @@ continuous and get grouped into one. Also, two lines whose distance is closer th
 the <em>line_margin</em> (<em><font color="blue">L</font></em>) is grouped
 as a text box, which is a rectangular area that contains a "cluster" of text portions.
 Furthermore, it may be required to insert blank characters (spaces) as necessary
-if the distance between two words is greater than the <em>word_margin</em> 
+if the distance between two words is greater than the <em>word_margin</em>
 (<em><font color="green">W</font></em>), as a blank between words might not be
 represented as a space, but indicated by the positioning of each word.
 <p>
 Each value is specified not as an actual length, but as a proportion of
-the length to the size of each character in question. The default values 
+the length to the size of each character in question. The default values
 are M = 2.0, L = 0.5, and W = 0.1, respectively.
 <table style="border:2px gray solid; margin: 10px; padding: 10px;"><tr>
 <td style="border-right:1px red solid" align=right>&rarr;</td>
@@ -262,27 +260,27 @@ are M = 2.0, L = 0.5, and W = 0.1, respectively.
 <td style="border-top:1px blue solid" align=right>&uarr;</td>
 </tr></table>
 <p>
-<dt> <code>-F <em>boxes_flow</em></code> 
+<dt> <code>-F <em>boxes_flow</em></code>
 <dd> Specifies how much a horizontal and vertical position of a text matters
-when determining a text order. The value should be within the range of 
+when determining a text order. The value should be within the range of
 -1.0 (only horizontal position matters) to +1.0 (only vertical position matters).
 The default value is 0.5.
 <p>
-<dt> <code>-C</code> 
-<dd> Suppress object caching. 
+<dt> <code>-C</code>
+<dd> Suppress object caching.
 This will reduce the memory consumption but also slows down the process.
 <p>
-<dt> <code>-n</code> 
+<dt> <code>-n</code>
 <dd> Suppress layout analysis.
 <p>
-<dt> <code>-A</code> 
-<dd> Forces to perform layout analysis for all the text strings, 
+<dt> <code>-A</code>
+<dd> Forces to perform layout analysis for all the text strings,
 including text contained in figures.
 <p>
-<dt> <code>-V</code> 
+<dt> <code>-V</code>
 <dd> Allows vertical writing detection.
 <p>
-<dt> <code>-Y <em>layout_mode</em></code> 
+<dt> <code>-Y <em>layout_mode</em></code>
 <dd> Specifies how the page layout should be preserved. (Currently only applies to HTML format.)
 <ul>
 <li> <code>exact</code> : preserve the exact location of each individual character (a large and messy HTML).
@@ -293,17 +291,17 @@ including text contained in figures.
 <dt> <code>-E <em>extractdir</em></code>
 <dd> Specifies the extraction directory of embedded files.
 <p>
-<dt> <code>-s <em>scale</em></code> 
+<dt> <code>-s <em>scale</em></code>
 <dd> Specifies the output scale. Can be used in HTML format only.
 <p>
-<dt> <code>-m <em>maxpages</em></code> 
+<dt> <code>-m <em>maxpages</em></code>
 <dd> Specifies the maximum number of pages to extract.
 By default, it extracts all the pages in a document.
 <p>
-<dt> <code>-P <em>password</em></code> 
+<dt> <code>-P <em>password</em></code>
 <dd> Provides the user password to access PDF contents.
 <p>
-<dt> <code>-d</code> 
+<dt> <code>-d</code>
 <dd> Increases the debug level.
 </dl>
 
@@ -330,15 +328,15 @@ $ <strong>dumppdf.py -r -i6 foo.pdf &gt; pic.jpeg</strong>
 
 <h4>Options</h4>
 <dl>
-<dt> <code>-a</code> 
+<dt> <code>-a</code>
 <dd> Instructs to dump all the objects.
 By default, it only prints the document trailer (like a header).
 <p>
-<dt> <code>-i <em>objno,objno, ...</em></code> 
+<dt> <code>-i <em>objno,objno, ...</em></code>
 <dd> Specifies PDF object IDs to display.
 Comma-separated IDs, or multiple <code>-i</code> options are accepted.
 <p>
-<dt> <code>-p <em>pageno,pageno, ...</em></code> 
+<dt> <code>-p <em>pageno,pageno, ...</em></code>
 <dd> Specifies the page number to be extracted.
 Comma-separated page numbers, or multiple <code>-p</code> options are accepted.
 Note that page numbers start at one, not zero.
@@ -350,31 +348,25 @@ Note that page numbers start at one, not zero.
 Because the contents of stream objects can be very large,
 they are omitted when none of the options above is specified.
 <p>
-With <code>-r</code> option, the "raw" stream contents are dumped without decompression. 
+With <code>-r</code> option, the "raw" stream contents are dumped without decompression.
 With <code>-b</code> option, the decompressed contents are dumped as a binary blob.
 With <code>-t</code> option, the decompressed contents are dumped in a text format,
-similar to <code>repr()</code> manner. When 
-<code>-r</code> or <code>-b</code> option is given, 
+similar to <code>repr()</code> manner. When
+<code>-r</code> or <code>-b</code> option is given,
 no stream header is displayed for the ease of saving it to a file.
 <p>
-<dt> <code>-T</code> 
+<dt> <code>-T</code>
 <dd> Shows the table of contents.
 <p>
-<dt> <code>-E <em>directory</em></code> 
+<dt> <code>-E <em>directory</em></code>
 <dd> Extracts embedded files from the pdf into the given directory.
 <p>
-<dt> <code>-P <em>password</em></code> 
+<dt> <code>-P <em>password</em></code>
 <dd> Provides the user password to access PDF contents.
 <p>
-<dt> <code>-d</code> 
+<dt> <code>-d</code>
 <dd> Increases the debug level.
 </dl>
-
-<h2><a name="changes">Changes:</a></h2>
-<ul>
-<li> 2014/09/15: pushed on PyPi</li>
-<li> 2014/09/10: pdfminer_six forked from pdfminer since Yusuke didn't want to merge and pdfminer3k is outdated</li>
-</ul>
 
 <h2><a name="todo">TODO</a></h2>
 <ul>

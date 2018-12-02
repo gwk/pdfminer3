@@ -8,7 +8,7 @@ import nose
 
 import logging
 
-from pdfminer.ccitt import *
+from pdfminer3.ccitt import *
 
 ##  Test cases
 ##
@@ -163,6 +163,6 @@ class TestCCITTG4Parser():
         parser._do_vertical(1)
         assert_equal(parser._get_bits(), '00000001')
         return
-    
+
 if __name__ == '__main__':
     nose.runmodule()

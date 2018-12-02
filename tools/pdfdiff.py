@@ -6,10 +6,10 @@ compares rwo pdf files.
 import sys
 import logging
 import six
-import pdfminer.settings
-pdfminer.settings.STRICT = False
-import pdfminer.high_level
-import pdfminer.layout
+import pdfminer3.settings
+pdfminer3.settings.STRICT = False
+import pdfminer3.high_level
+import pdfminer3.layout
 
 def compare(file1,file2,**args):
     if args.get('_py2_no_more_posargs',None) is not None:
@@ -19,26 +19,26 @@ def compare(file1,file2,**args):
     # If any LAParams group arguments were passed, create an LAParams object and
     # populate with given args. Otherwise, set it to None.
     if args.get('laparams',None) is None:
-        laparams = pdfminer.layout.LAParams()
+        laparams = pdfminer3.layout.LAParams()
         for param in ("all_texts", "detect_vertical", "word_margin", "char_margin", "line_margin", "boxes_flow"):
             paramv = args.get(param, None)
             if paramv is not None:
                 laparams[param]=paramv
         args['laparams']=laparams
-                
+
     s1=six.StringIO()
     with open(file1, "rb") as fp:
-        pdfminer.high_level.extract_text_to_fp(fp,s1, **args)
-    
+        pdfminer3.high_level.extract_text_to_fp(fp,s1, **args)
+
     s2=six.StringIO()
     with open(file2, "rb") as fp:
-        pdfminer.high_level.extract_text_to_fp(fp,s2, **args)
-    
+        pdfminer3.high_level.extract_text_to_fp(fp,s2, **args)
+
     import difflib
     s1.seek(0)
     s2.seek(0)
     s1,s2=s1.readlines(), s2.readlines()
-    
+
     import os.path
     try:
         extension = os.path.splitext(args['outfile'])[1][1:4]
@@ -55,7 +55,7 @@ def main(args=None):
     P = argparse.ArgumentParser(description=__doc__)
     P.add_argument("file1", type=str, default=None, help="File 1 to compare.")
     P.add_argument("file2", type=str, default=None, help="File 2 to compare.")
-    P.add_argument("-o", "--outfile", type=str, default="-", 
+    P.add_argument("-o", "--outfile", type=str, default="-",
         help="Output file (default/'-' is stdout) \
         if .htm or .html, create an HTML table (or a complete HTML file containing the table) \
         showing a side by side, line by line comparison of text with inter-line \
@@ -85,7 +85,7 @@ def main(args=None):
     P.add_argument("-O", "--output-dir", default=None, help="Output directory for images")
     P.add_argument("-C", "--disable-caching", default=False, action="store_true", help="Disable caching")
     P.add_argument("-S", "--strip-control", default=False, action="store_true", help="Strip control in XML mode")
-    
+
 
     A = P.parse_args(args=args)
 

@@ -233,7 +233,7 @@ class CMapDB(object):
         name = name.replace("\0", "")
         filename = '%s.pickle.gz' % name
         log.info('loading: %r', name)
-        cmap_paths = (os.environ.get('CMAP_PATH', '/usr/share/pdfminer/'),
+        cmap_paths = (os.environ.get('CMAP_PATH', '/usr/share/pdfminer3/'),
                       os.path.join(os.path.dirname(__file__), 'cmap'),)
         for directory in cmap_paths:
             path = os.path.join(directory, filename)

@@ -8,7 +8,7 @@ import nose
 
 import logging
 
-from pdfminer.psparser import *
+from pdfminer3.psparser import *
 
 ##  Simplistic Test cases
 ##

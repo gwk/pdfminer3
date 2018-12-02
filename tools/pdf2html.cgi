@@ -12,19 +12,19 @@
 #   $ mkdir $CGIDIR
 #   $ mkdir $CGIDIR/var
 #   $ python setup.py install_lib --install-dir=$CGIDIR
-#   $ cp pdfminer/tools/pdf2html.cgi $CGIDIR
+#   $ cp pdfminer3/tools/pdf2html.cgi $CGIDIR
 #
 
 import sys, os, os.path, re, time
 import cgi, logging, traceback, random
 # comment out at this at runtime.
 #import cgitb; cgitb.enable()
-import pdfminer
-from pdfminer.pdfdocument import PDFDocument
-from pdfminer.pdfpage import PDFPage
-from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
-from pdfminer.converter import HTMLConverter, TextConverter
-from pdfminer.layout import LAParams
+import pdfminer3
+from pdfminer3.pdfdocument import PDFDocument
+from pdfminer3.pdfpage import PDFPage
+from pdfminer3.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer3.converter import HTMLConverter, TextConverter
+from pdfminer3.layout import LAParams
 
 
 # quote HTML metacharacters
@@ -147,7 +147,7 @@ class WebApp(object):
           '<input type="submit" name="c" value="Convert to TEXT">\n',
           '<input type="reset" value="Reset">\n',
           '</form><hr>\n',
-          '<p>Powered by <a href="http://www.unixuser.org/~euske/python/pdfminer/">PDFMiner</a>-%s\n' % pdfminer.__version__,
+          '<p>Powered by <a href="http://www.unixuser.org/~euske/python/pdfminer/">pdfminer3</a>-%s\n' % pdfminer3.__version__,
           '</body></html>\n',
           )
         return

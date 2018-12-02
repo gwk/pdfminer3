@@ -587,7 +587,7 @@ class PDFDocument(object):
             if settings.STRICT:
                 raise PDFSyntaxError('Catalog not found!')
         return
-    
+
     KEYWORD_OBJ = KWD(b'obj')
 
     # _initialize_password(password=b'')

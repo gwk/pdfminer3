@@ -7,11 +7,11 @@ import argparse
 import logging
 import six
 import sys
-import pdfminer.settings
-pdfminer.settings.STRICT = False
-import pdfminer.high_level
-import pdfminer.layout
-from pdfminer.image import ImageWriter
+import pdfminer3.settings
+pdfminer3.settings.STRICT = False
+import pdfminer3.high_level
+import pdfminer3.layout
+from pdfminer3.image import ImageWriter
 
 
 def extract_text(files=[], outfile='-',
@@ -30,7 +30,7 @@ def extract_text(files=[], outfile='-',
     # If any LAParams group arguments were passed, create an LAParams object and
     # populate with given args. Otherwise, set it to None.
     if not no_laparams:
-        laparams = pdfminer.layout.LAParams()
+        laparams = pdfminer3.layout.LAParams()
         for param in ("all_texts", "detect_vertical", "word_margin", "char_margin", "line_margin", "boxes_flow"):
             paramv = locals().get(param, None)
             if paramv is not None:
@@ -60,7 +60,7 @@ def extract_text(files=[], outfile='-',
 
     for fname in files:
         with open(fname, "rb") as fp:
-            pdfminer.high_level.extract_text_to_fp(fp, **locals())
+            pdfminer3.high_level.extract_text_to_fp(fp, **locals())
     return outfp
 
 

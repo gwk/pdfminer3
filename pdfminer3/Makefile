@@ -1,4 +1,4 @@
-# Makefile for pdfminer
+# Makefile for pdfminer3
 
 RM=rm -f
 
