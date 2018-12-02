@@ -385,7 +385,7 @@ class PDFPageInterpreter(object):
         # set some global states.
         self.scs = self.ncs = None
         if self.csmap:
-            self.scs = self.ncs = six.next(six.itervalues(self.csmap))
+            self.scs = self.ncs = six.next(iter(sorted(six.itervalues(self.csmap), key=lambda ncs: ncs.name)))
         return
 
     def push(self, obj):
