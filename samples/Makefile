@@ -69,7 +69,7 @@ crypts:
 	done
 
 test:
-	$(MAKE) all CMP=cmp
+	$(MAKE) all CMP='git diff --no-index --no-prefix'
 
 clean:
 	-for i in $(TESTS); do \
