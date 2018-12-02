@@ -16,7 +16,7 @@ class Arcfour(object):
         j = 0
         klen = len(key)
         for i in range(256):
-            j = (j + s[i] + six.indexbytes(key,i % klen)) % 256
+            j = (j + s[i] + six.indexbytes(key, i % klen)) % 256
             (s[i], s[j]) = (s[j], s[i])
         self.s = s
         (self.i, self.j) = (0, 0)

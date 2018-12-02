@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
 import fileinput
@@ -21,10 +21,10 @@ def main(argv):
                 chars[cid] = width
         elif k in ('CapHeight', 'XHeight', 'ItalicAngle',
                    'Ascender', 'Descender'):
-            k = {'Ascender':'Ascent', 'Descender':'Descent'}.get(k,k)
+            k = {'Ascender':'Ascent', 'Descender':'Descent'}.get(k, k)
             props[k] = float(f[1])
         elif k in ('FontName', 'FamilyName', 'Weight'):
-            k = {'FamilyName':'FontFamily', 'Weight':'FontWeight'}.get(k,k)
+            k = {'FamilyName':'FontFamily', 'Weight':'FontWeight'}.get(k, k)
             props[k] = f[1]
         elif k == 'IsFixedPitch':
             if f[1].lower() == 'true':
@@ -33,8 +33,8 @@ def main(argv):
             props[k] = tuple(map(float, f[1:5]))
     print ('# -*- python -*-')
     print ('FONT_METRICS = {')
-    for (fontname,(props,chars)) in fonts.iteritems():
-        print (' %r: %r,' % (fontname, (props,chars)))
+    for (fontname, (props, chars)) in list(fonts.items()):
+        print((' %r: %r,' % (fontname, (props, chars))))
     print ('}')
     return 0
 

@@ -701,7 +701,7 @@ rcon = [
     # 128-bit blocks, Rijndael never uses more than 10 rcon values
 ]
 
-if len(struct.pack('L',0)) == 4:
+if len(struct.pack('L', 0)) == 4:
     # 32bit
     def GETU32(x): return struct.unpack('>L', x)[0]
     def PUTU32(x): return struct.pack('>L', x)
@@ -722,7 +722,7 @@ def rijndaelSetupEncrypt(key, keybits):
     rk[2] = GETU32(key[8:12])
     rk[3] = GETU32(key[12:16])
     if keybits == 128:
-        while 1:
+        while True:
             temp = rk[p+3]
             rk[p+4] = (rk[p+0] ^
                        (Te4[(temp >> 16) & 0xff] & 0xff000000) ^
@@ -740,7 +740,7 @@ def rijndaelSetupEncrypt(key, keybits):
     rk[4] = GETU32(key[16:20])
     rk[5] = GETU32(key[20:24])
     if keybits == 192:
-        while 1:
+        while True:
             temp = rk[p+5]
             rk[p+6] = (rk[p+0] ^
                        (Te4[(temp >> 16) & 0xff] & 0xff000000) ^
@@ -760,7 +760,7 @@ def rijndaelSetupEncrypt(key, keybits):
     rk[6] = GETU32(key[24:28])
     rk[7] = GETU32(key[28:32])
     if keybits == 256:
-        while 1:
+        while True:
             temp = rk[p+7]
             rk[p+8] = (rk[p+0] ^
                        (Te4[(temp >> 16) & 0xff] & 0xff000000) ^
@@ -845,7 +845,7 @@ def rijndaelEncrypt(rk, nrounds, plaintext):
     # nrounds - 1 full rounds:
     r = nrounds >> 1
     p = 0
-    while 1:
+    while True:
         t0 = (
           Te0[(s0 >> 24)       ] ^
           Te1[(s1 >> 16) & 0xff] ^
@@ -948,7 +948,7 @@ def rijndaelDecrypt(rk, nrounds, ciphertext):
     # nrounds - 1 full rounds:
     r = nrounds >> 1
     p = 0
-    while 1:
+    while True:
         t0 = (
           Td0[(s0 >> 24)       ] ^
           Td1[(s3 >> 16) & 0xff] ^

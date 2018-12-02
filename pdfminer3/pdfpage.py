@@ -75,7 +75,7 @@ class PDFPage(object):
     def __repr__(self):
         return '<PDFPage: Resources=%r, MediaBox=%r>' % (self.resources, self.mediabox)
 
-    INHERITABLE_ATTRS = set(['Resources', 'MediaBox', 'CropBox', 'Rotate'])
+    INHERITABLE_ATTRS = {'Resources', 'MediaBox', 'CropBox', 'Rotate'}
 
     @classmethod
     def create_pages(klass, document):

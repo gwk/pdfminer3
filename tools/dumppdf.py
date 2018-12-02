@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #
 # dumppdf.py - dump pdf contents in XML format.
@@ -110,7 +110,7 @@ def dumpallobjs(out, doc, codec=None):
                 dumpxml(out, obj, codec=codec)
                 out.write('\n</object>\n\n')
             except PDFObjectNotFound as e:
-                print >>sys.stderr, 'not found: %r' % e
+                print('not found: %r' % e, file=sys.stderr)
     dumptrailers(out, doc)
     out.write('</pdf>')
     return
@@ -184,7 +184,7 @@ def extractembedded(outfp, fname, objids, pagenos, password='',
         path = os.path.join(extractdir, filename)
         if os.path.exists(path):
             raise IOError('file exists: %r' % path)
-        print >>sys.stderr, 'extracting: %r' % path
+        print('extracting: %r' % path, file=sys.stderr)
         out = file(path, 'wb')
         out.write(fileobj.get_data())
         out.close()
@@ -234,7 +234,7 @@ def dumppdf(outfp, fname, objids, pagenos, password='',
 def main(argv):
     import getopt
     def usage():
-        print ('usage: %s [-d] [-a] [-p pageid] [-P password] [-r|-b|-t] [-T] [-E directory] [-i objid] file ...' % argv[0])
+        print(('usage: %s [-d] [-a] [-p pageid] [-P password] [-r|-b|-t] [-T] [-E directory] [-i objid] file ...' % argv[0]))
         return 100
     try:
         (opts, args) = getopt.getopt(argv[1:], 'dap:P:rbtTE:i:o:')

@@ -1,4 +1,4 @@
-#!/usr/bin/env python -O
+#!/usr/bin/env python3 -O
 #
 # pdf2html.cgi - Gateway script for converting PDF into HTML.
 #
@@ -29,13 +29,13 @@ from pdfminer3.layout import LAParams
 
 # quote HTML metacharacters
 def q(x):
-    return x.replace('&','&amp;').replace('>','&gt;').replace('<','&lt;').replace('"','&quot;')
+    return x.replace('&', '&amp;').replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
 
 # encode parameters as a URL
 Q = re.compile(r'[^a-zA-Z0-9_.-=]')
 def url(base, **kw):
     r = []
-    for (k,v) in kw.iteritems():
+    for (k, v) in list(kw.items()):
         v = Q.sub(lambda m: '%%%02X' % ord(m.group(0)), encoder(q(v), 'replace')[0])
         r.append('%s=%s' % (k, v))
     return base+'&'.join(r)
@@ -50,7 +50,7 @@ def convert(infp, outfp, path, codec='utf-8',
     # save the input file.
     src = open(path, 'wb')
     nbytes = 0
-    while 1:
+    while True:
         data = infp.read(4096)
         nbytes += len(data)
         if maxfilesize and maxfilesize < nbytes:
@@ -105,7 +105,7 @@ class WebApp(object):
         for x in args:
             if isinstance(x, str):
                 self.outfp.write(x)
-            elif isinstance(x, unicode):
+            elif isinstance(x, str):
                 self.outfp.write(x.encode(self.codec, 'xmlcharrefreplace'))
         return
 

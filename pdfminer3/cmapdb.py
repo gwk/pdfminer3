@@ -16,7 +16,7 @@ import os
 import os.path
 import gzip
 try:
-    import cPickle as pickle
+    import pickle as pickle
 except ImportError:
     import pickle as pickle
 import struct
@@ -83,7 +83,7 @@ class CMap(CMapBase):
         assert isinstance(cmap, CMap), str(type(cmap))
 
         def copy(dst, src):
-            for (k, v) in src.iteritems():
+            for (k, v) in list(src.items()):
                 if isinstance(v, dict):
                     d = {}
                     dst[k] = d
@@ -110,7 +110,7 @@ class CMap(CMapBase):
         if code2cid is None:
             code2cid = self.code2cid
             code = ()
-        for (k, v) in sorted(code2cid.iteritems()):
+        for (k, v) in sorted(code2cid.items()):
             c = code+(k,)
             if isinstance(v, int):
                 out.write('code %r = cid %d\n' % (c, v))
@@ -148,7 +148,7 @@ class UnicodeMap(CMapBase):
         return self.cid2unichr[cid]
 
     def dump(self, out=sys.stdout):
-        for (k, v) in sorted(self.cid2unichr.iteritems()):
+        for (k, v) in sorted(self.cid2unichr.items()):
             out.write('cid %d = unicode %r\n' % (k, v))
         return
 
@@ -186,7 +186,7 @@ class FileUnicodeMap(UnicodeMap):
             # Interpret as UTF-16BE.
             self.cid2unichr[cid] = code.decode('UTF-16BE', 'ignore')
         elif isinstance(code, int):
-            self.cid2unichr[cid] = six.unichr(code)
+            self.cid2unichr[cid] = chr(code)
         else:
             raise TypeError(code)
         return

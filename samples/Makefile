@@ -3,11 +3,9 @@
 RM=rm -f
 CMP=:
 ECHO=echo
-PYTHON=python2
-PYTHON3=python3
 
-PDF2TXT=PYTHONPATH=.. $(PYTHON) ../tools/pdf2txt.py -p1 -V
-PDF2TXT3=PYTHONPATH=.. $(PYTHON3) ../tools/pdf2txt.py -p1 -V
+PDF2TXT=PYTHONPATH=.. ../tools/pdf2txt.py -p1 -V
+PDF2TXT3=PYTHONPATH=.. ../tools/pdf2txt.py -p1 -V
 
 FREE= \
 	simple1 \

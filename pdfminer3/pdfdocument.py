@@ -92,7 +92,7 @@ class PDFXRef(PDFBaseXRef):
         return
 
     def __repr__(self):
-        return '<PDFXRef: offsets=%r>' % (self.offsets.keys())
+        return '<PDFXRef: offsets=%r>' % (list(self.offsets.keys()))
 
     def load(self, parser):
         while True:
@@ -112,9 +112,9 @@ class PDFXRef(PDFBaseXRef):
                 raise PDFNoValidXRef('Trailer not found: %r: line=%r' % (parser, line))
             try:
                 if six.PY2:
-                    (start, nobjs) = map(long, f)
+                    (start, nobjs) = list(map(int, f))
                 else:
-                    (start, nobjs) = map(int, f)
+                    (start, nobjs) = list(map(int, f))
             except ValueError:
                 raise PDFNoValidXRef('Invalid line: %r: line=%r' % (parser, line))
             for objid in range(start, start+nobjs):
@@ -128,7 +128,7 @@ class PDFXRef(PDFBaseXRef):
                 (pos, genno, use) = f
                 if use != b'n':
                     continue
-                self.offsets[objid] = (None, long(pos) if six.PY2 else int(pos), int(genno))
+                self.offsets[objid] = (None, int(pos) if six.PY2 else int(pos), int(genno))
         log.info('xref objects: %r', self.offsets)
         self.load_trailer(parser)
         return
@@ -165,13 +165,13 @@ class PDFXRef(PDFBaseXRef):
 class PDFXRefFallback(PDFXRef):
 
     def __repr__(self):
-        return '<PDFXRefFallback: offsets=%r>' % (self.offsets.keys())
+        return '<PDFXRefFallback: offsets=%r>' % (list(self.offsets.keys()))
 
     PDFOBJ_CUE = re.compile(r'^(\d+)\s+(\d+)\s+obj\b')
 
     def load(self, parser):
         parser.seek(0)
-        while 1:
+        while True:
             try:
                 (pos, line) = parser.nextline()
             except PSEOF:
@@ -204,7 +204,7 @@ class PDFXRefFallback(PDFXRef):
                 parser1 = PDFStreamParser(stream.get_data())
                 objs = []
                 try:
-                    while 1:
+                    while True:
                         (_, obj) = parser1.nextobject()
                         objs.append(obj)
                 except PSEOF:
@@ -432,7 +432,7 @@ class PDFStandardSecurityHandlerV4(PDFStandardSecurityHandler):
         if self.stmf != self.strf:
             raise PDFEncryptionError('Unsupported crypt filter: param=%r' % self.param)
         self.cfm = {}
-        for k, v in self.cf.items():
+        for k, v in list(self.cf.items()):
             f = self.get_cfm(literal_name(v['CFM']))
             if f is None:
                 raise PDFEncryptionError('Unknown crypt filter method: param=%r' % self.param)
@@ -636,7 +636,7 @@ class PDFDocument(object):
         parser.set_document(self)
         objs = []
         try:
-            while 1:
+            while True:
                 (_, obj) = parser.nextobject()
                 objs.append(obj)
         except PSEOF:
@@ -655,7 +655,7 @@ class PDFDocument(object):
         if objid1 != objid:
             x = []
             while kwd is not self.KEYWORD_OBJ:
-                (_,kwd) = self._parser.nexttoken()
+                (_, kwd) = self._parser.nexttoken()
                 x.append(kwd)
             if x:
                 objid1 = x[-2]
@@ -780,7 +780,7 @@ class PDFDocument(object):
         else:
             raise PDFNoValidXRef('Unexpected EOF')
         log.info('xref found: pos=%r', prev)
-        return long(prev) if six.PY2 else int(prev)
+        return int(prev) if six.PY2 else int(prev)
 
     # read xref table
     def read_xref_from(self, parser, start, xrefs):

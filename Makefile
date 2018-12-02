@@ -3,7 +3,6 @@
 
 PACKAGE=pdfminer3
 
-PYTHON=python
 GIT=git
 RM=rm -f
 CP=cp -f
@@ -12,10 +11,10 @@ MKDIR=mkdir
 all:
 
 install:
-	$(PYTHON) setup.py install --home=$(HOME)
+	python3 setup.py install --home=$(HOME)
 
 clean:
-	-$(PYTHON) setup.py clean
+	-python3 setup.py clean
 	-$(RM) -r build dist MANIFEST
 	-cd $(PACKAGE) && $(MAKE) clean
 	-cd tools && $(MAKE) clean
@@ -24,15 +23,15 @@ clean:
 distclean: clean cmap_clean
 
 sdist: distclean MANIFEST.in
-	$(PYTHON) setup.py sdist
+	python3 setup.py sdist
 register: distclean MANIFEST.in
-	$(PYTHON) setup.py sdist upload register
+	python3 setup.py sdist upload register
 
 WEBDIR=../euske.github.io/$(PACKAGE)
 publish:
 	$(CP) docs/*.html docs/*.png docs/*.css $(WEBDIR)
 
-CONV_CMAP=$(PYTHON) tools/conv_cmap.py
+CONV_CMAP=python3 tools/conv_cmap.py
 CMAPSRC=cmaprsrc
 CMAPDST=pdfminer3/cmap
 cmap: $(CMAPDST)/to-unicode-Adobe-CNS1.pickle.gz $(CMAPDST)/to-unicode-Adobe-GB1.pickle.gz \

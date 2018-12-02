@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #
 #  latin2ascii.py - converts latin1 characters into ascii.
@@ -107,13 +107,13 @@ LATIN2ASCII = {
 }
 
 def latin2ascii(s):
-    return ''.join( LATIN2ASCII.get(ord(c),c) for c in s )
+    return ''.join( LATIN2ASCII.get(ord(c), c) for c in s )
 
 
 def main(argv):
     import getopt, fileinput
     def usage():
-        print ('usage: %s [-c codec] file ...' % argv[0])
+        print(('usage: %s [-c codec] file ...' % argv[0]))
         return 100
     try:
         (opts, args) = getopt.getopt(argv[1:], 'c')
@@ -124,7 +124,7 @@ def main(argv):
     for (k, v) in opts:
         if k == '-c': codec = v
     for line in fileinput.input(args):
-        line = latin2ascii(unicode(line, codec, 'ignore'))
+        line = latin2ascii(str(line, codec, 'ignore'))
         sys.stdout.write(line.encode('ascii', 'replace'))
     return
 

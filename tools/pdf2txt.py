@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """
 Converts PDF text content (though not images containing text) to plain text, html, xml or "tags".
@@ -100,9 +100,9 @@ def main(args=None):
     A = P.parse_args(args=args)
 
     if A.page_numbers:
-        A.page_numbers = set([x-1 for x in A.page_numbers])
+        A.page_numbers = {x-1 for x in A.page_numbers}
     if A.pagenos:
-        A.page_numbers = set([int(x)-1 for x in A.pagenos.split(",")])
+        A.page_numbers = {int(x)-1 for x in A.pagenos.split(",")}
 
     imagewriter = None
     if A.output_dir:

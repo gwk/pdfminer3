@@ -247,7 +247,7 @@ class PDFContentParser(PSStackParser):
     def fillbuf(self):
         if self.charpos < len(self.buf):
             return
-        while 1:
+        while True:
             self.fillfp()
             self.bufpos = self.fp.tell()
             self.buf = self.fp.read(self.BUFSIZ)
@@ -264,7 +264,7 @@ class PDFContentParser(PSStackParser):
         while i <= len(target):
             self.fillbuf()
             if i:
-                c = six.indexbytes(self.buf,self.charpos)
+                c = six.indexbytes(self.buf, self.charpos)
                 c=six.int2byte(c)
                 data += c
                 self.charpos += 1
@@ -870,7 +870,7 @@ class PDFPageInterpreter(object):
         except PSEOF:
             # empty page
             return
-        while 1:
+        while True:
             try:
                 (_, obj) = parser.nextobject()
             except PSEOF:

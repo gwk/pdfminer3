@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """
 compares rwo pdf files.
@@ -12,13 +12,13 @@ import pdfminer3.high_level
 import pdfminer3.layout
 
 def compare(file1,file2,**args):
-    if args.get('_py2_no_more_posargs',None) is not None:
+    if args.get('_py2_no_more_posargs', None) is not None:
         raise ValueError("Too many positional arguments passed.")
 
 
     # If any LAParams group arguments were passed, create an LAParams object and
     # populate with given args. Otherwise, set it to None.
-    if args.get('laparams',None) is None:
+    if args.get('laparams', None) is None:
         laparams = pdfminer3.layout.LAParams()
         for param in ("all_texts", "detect_vertical", "word_margin", "char_margin", "line_margin", "boxes_flow"):
             paramv = args.get(param, None)
@@ -28,25 +28,25 @@ def compare(file1,file2,**args):
 
     s1=six.StringIO()
     with open(file1, "rb") as fp:
-        pdfminer3.high_level.extract_text_to_fp(fp,s1, **args)
+        pdfminer3.high_level.extract_text_to_fp(fp, s1, **args)
 
     s2=six.StringIO()
     with open(file2, "rb") as fp:
-        pdfminer3.high_level.extract_text_to_fp(fp,s2, **args)
+        pdfminer3.high_level.extract_text_to_fp(fp, s2, **args)
 
     import difflib
     s1.seek(0)
     s2.seek(0)
-    s1,s2=s1.readlines(), s2.readlines()
+    s1, s2=s1.readlines(), s2.readlines()
 
     import os.path
     try:
         extension = os.path.splitext(args['outfile'])[1][1:4]
         if extension.lower()=='htm':
-            return difflib.HtmlDiff().make_file(s1,s2)
+            return difflib.HtmlDiff().make_file(s1, s2)
     except KeyError:
         pass
-    return difflib.unified_diff(s1,s2,n=args['context_lines'])
+    return difflib.unified_diff(s1, s2, n=args['context_lines'])
 
 
 # main
@@ -90,9 +90,9 @@ def main(args=None):
     A = P.parse_args(args=args)
 
     if A.page_numbers:
-        A.page_numbers = set([x-1 for x in A.page_numbers])
+        A.page_numbers = {x-1 for x in A.page_numbers}
     if A.pagenos:
-        A.page_numbers = set([int(x)-1 for x in A.pagenos.split(",")])
+        A.page_numbers = {int(x)-1 for x in A.pagenos.split(",")}
 
     if six.PY2 and sys.stdin.encoding:
         A.password = A.password.decode(sys.stdin.encoding)

@@ -61,7 +61,7 @@ def asciihexdecode(data):
     will behave as if a 0 followed the last digit.
     """
     def decode(x):
-        i=int(x,16)
+        i=int(x, 16)
         return six.int2byte(i)
 
     out=b''

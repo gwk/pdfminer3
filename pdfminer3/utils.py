@@ -11,7 +11,7 @@ import six  #Python 2+3 compatibility
 
 if six.PY3:
     import chardet  # For str encoding detection in Py3
-    unicode = str
+    str = str
 
 def make_compat_bytes(in_str):
     "In Py2, does nothing. In Py3, converts to bytes, encoding to unicode."
@@ -23,7 +23,7 @@ def make_compat_bytes(in_str):
 
 def make_compat_str(in_str):
     "In Py2, does nothing. In Py3, converts to string, guessing encoding."
-    assert isinstance(in_str, (bytes, str, unicode)), str(type(in_str))
+    assert isinstance(in_str, (bytes, str)), str(type(in_str))
     if six.PY3 and isinstance(in_str, bytes):
         enc = chardet.detect(in_str)
         in_str = in_str.decode(enc['encoding'])
@@ -32,7 +32,7 @@ def make_compat_str(in_str):
 def compatible_encode_method(bytesorstring, encoding='utf-8', erraction='ignore'):
     "When Py2 str.encode is called, it often means bytes.encode in Py3. This does either."
     if six.PY2:
-        assert isinstance(bytesorstring, (str, unicode)), str(type(bytesorstring))
+        assert isinstance(bytesorstring, str), str(type(bytesorstring))
         return bytesorstring.encode(encoding, erraction)
     if six.PY3:
         if isinstance(bytesorstring, str): return bytesorstring
@@ -162,7 +162,7 @@ def fsplit(pred, objs):
 def drange(v0, v1, d):
     """Returns a discrete range."""
     assert v0 < v1, str((v0, v1, d))
-    return range(int(v0)//d, int(v1+d)//d)
+    return list(range(int(v0)//d, int(v1+d)//d))
 
 
 # get_bound
@@ -221,7 +221,7 @@ def nunpack(s, default=0):
 
 
 # decode_text
-PDFDocEncoding = ''.join(six.unichr(x) for x in (
+PDFDocEncoding = ''.join(chr(x) for x in (
     0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
     0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
     0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0017, 0x0017,

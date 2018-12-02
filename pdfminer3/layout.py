@@ -636,8 +636,8 @@ class LTLayoutContainer(LTContainer):
             return objs.difference((obj1, obj2))
 
         def key_obj(t):
-            (c,d,_,_) = t
-            return (c,d)
+            (c, d, _, _) = t
+            return (c, d)
 
         dists = SortedListWithKey(key=key_obj)
         for i in range(len(boxes)):
@@ -660,7 +660,7 @@ class LTLayoutContainer(LTContainer):
             plane.remove(obj1)
             plane.remove(obj2)
             removed = [obj1, obj2]
-            to_remove = [ (c,d,obj1,obj2) for (c,d,obj1,obj2) in dists
+            to_remove = [ (c, d, obj1, obj2) for (c, d, obj1, obj2) in dists
                       if (obj1 in removed or obj2 in removed) ]
             for r in to_remove:
                 dists.remove(r)

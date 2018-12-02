@@ -104,7 +104,7 @@ class PDFParser(PSStackParser):
             self.fp.seek(pos)
             data = bytearray(self.fp.read(objlen))
             self.seek(pos+objlen)
-            while 1:
+            while True:
                 try:
                     (linepos, line) = self.nextline()
                 except PSEOF:

@@ -137,7 +137,7 @@ def literal_name(x):
         name=x.name
         if six.PY3:
             try:
-                name = str(name,'utf-8')
+                name = str(name, 'utf-8')
             except:
                 pass
     return name
@@ -151,7 +151,7 @@ def keyword_name(x):
     else:
         name=x.name
         if six.PY3:
-            name = str(name,'utf-8','ignore')
+            name = str(name, 'utf-8', 'ignore')
     return name
 
 
@@ -237,7 +237,7 @@ class PSBaseParser(object):
         linebuf = b''
         linepos = self.bufpos + self.charpos
         eol = False
-        while 1:
+        while True:
             self.fillbuf()
             if eol:
                 c = self.buf[self.charpos:self.charpos+1]
@@ -276,7 +276,7 @@ class PSBaseParser(object):
             s = self.fp.read(prevpos-pos)
             if not s:
                 break
-            while 1:
+            while True:
                 n = max(s.rfind(b'\r'), s.rfind(b'\n'))
                 if n == -1:
                     buf = s + buf
@@ -359,7 +359,7 @@ class PSBaseParser(object):
             self._parse1 = self._parse_literal_hex
             return j+1
         try:
-            self._curtoken=str(self._curtoken,'utf-8')
+            self._curtoken=str(self._curtoken, 'utf-8')
         except:
             pass
         self._add_token(LIT(self._curtoken))
@@ -490,7 +490,7 @@ class PSBaseParser(object):
             return len(s)
         j = m.start(0)
         self._curtoken += s[i:j]
-        token = HEX_PAIR.sub(lambda m: six.int2byte(int(m.group(0), 16)),SPC.sub(b'', self._curtoken))
+        token = HEX_PAIR.sub(lambda m: six.int2byte(int(m.group(0), 16)), SPC.sub(b'', self._curtoken))
         self._add_token(token)
         self._parse1 = self._parse_main
         return j
@@ -611,7 +611,7 @@ class PSStackParser(PSBaseParser):
                 except PSTypeError:
                     if settings.STRICT:
                         raise
-            elif isinstance(token,PSKeyword):
+            elif isinstance(token, PSKeyword):
                 log.debug('do_keyword: pos=%r, token=%r, stack=%r', pos, token, self.curstack)
                 self.do_keyword(pos, token)
             else:

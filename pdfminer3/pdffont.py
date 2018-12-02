@@ -106,7 +106,7 @@ class Type1FontHeaderParser(PSStackParser):
         return
 
     def get_encoding(self):
-        while 1:
+        while True:
             try:
                 (cid, name) = self.nextobject()
             except PSEOF:
@@ -137,7 +137,7 @@ def getdict(data):
     d = {}
     fp = BytesIO(data)
     stack = []
-    while 1:
+    while True:
         c = fp.read(1)
         if not c:
             break
@@ -453,7 +453,7 @@ class TrueTypeFont(object):
                 assert False, str(('Unhandled', fmttype))
         # create unicode map
         unicode_map = FileUnicodeMap()
-        for (char, gid) in char2gid.iteritems():
+        for (char, gid) in list(char2gid.items()):
             unicode_map.add_cid2unichr(gid, char)
         return unicode_map
 
