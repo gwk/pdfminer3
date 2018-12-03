@@ -9,9 +9,9 @@
 
 import sys
 import urllib.request, urllib.parse, urllib.error
-from six.moves.http_client import responses
-from six.moves.BaseHTTPServer import HTTPServer
-from six.moves.SimpleHTTPServer import SimpleHTTPRequestHandler
+from http.client import responses
+from http.server import HTTPServer
+from http.server import SimpleHTTPRequestHandler
 
 ##  WebAppHandler
 ##

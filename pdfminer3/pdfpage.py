@@ -11,7 +11,6 @@ from .pdfparser import PDFParser
 from .pdfdocument import PDFDocument
 from .pdfdocument import PDFTextExtractionNotAllowed
 
-import six  # Python 2+3 compatibility
 
 log = logging.getLogger(__name__)
 
@@ -86,7 +85,7 @@ class PDFPage(object):
             else:
                 objid = obj.objid
                 tree = dict_value(obj).copy()
-            for (k, v) in six.iteritems(parent):
+            for (k, v) in parent.items():
                 if k in klass.INHERITABLE_ATTRS and k not in tree:
                     tree[k] = v
 

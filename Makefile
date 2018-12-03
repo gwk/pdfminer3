@@ -53,6 +53,10 @@ $(CMAPDST)/to-unicode-Adobe-Korea1.pickle.gz: $(CMAPDST)
 	$(CONV_CMAP) -c KSC-EUC=euc-kr -c KSC-Johab=johab -c KSCms-UHC=cp949 -c UniKS-UTF8=utf-8 \
 		$(CMAPDST) Adobe-Korea1 $(CMAPSRC)/cid2code_Adobe_Korea1.txt
 
-test: cmap
+test: test-nose test-samples
+
+test-nose:: cmap
 	nosetests
+
+test-samples: cmap
 	cd samples && $(MAKE) test

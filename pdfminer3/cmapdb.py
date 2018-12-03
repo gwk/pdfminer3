@@ -31,8 +31,6 @@ from .encodingdb import name2unicode
 from .utils import choplist
 from .utils import nunpack
 
-import six  #Python 2+3 compatibility
-
 log = logging.getLogger(__name__)
 
 
@@ -96,7 +94,7 @@ class CMap(CMapBase):
     def decode(self, code):
         log.debug('decode: %r, %r', self, code)
         d = self.code2cid
-        for i in six.iterbytes(code):
+        for i in code:
             if i in d:
                 d = d[i]
                 if isinstance(d, int):

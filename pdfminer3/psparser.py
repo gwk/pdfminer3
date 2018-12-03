@@ -5,8 +5,6 @@
 import re
 import logging
 
-import six  # Python 2+3 compatibility
-
 from . import settings
 from .utils import choplist
 
@@ -135,11 +133,10 @@ def literal_name(x):
             name=x
     else:
         name=x.name
-        if six.PY3:
-            try:
-                name = str(name, 'utf-8')
-            except:
-                pass
+        try:
+            name = str(name, 'utf-8')
+        except:
+            pass
     return name
 
 def keyword_name(x):
@@ -147,11 +144,9 @@ def keyword_name(x):
         if settings.STRICT:
             raise PSTypeError('Keyword required: %r' % x)
         else:
-            name=x
+            name = x
     else:
-        name=x.name
-        if six.PY3:
-            name = str(name, 'utf-8', 'ignore')
+        name = str(x.name, 'utf-8', 'ignore')
     return name
 
 
@@ -372,7 +367,7 @@ class PSBaseParser(object):
             self.hex += c
             return i+1
         if self.hex:
-            self._curtoken += six.int2byte(int(self.hex, 16))
+            self._curtoken += bytes((int(self.hex, 16),))
         self._parse1 = self._parse_literal
         return i
 
@@ -457,11 +452,11 @@ class PSBaseParser(object):
             self.oct += c
             return i+1
         if self.oct:
-            self._curtoken += six.int2byte(int(self.oct, 8))
+            self._curtoken += bytes((int(self.oct, 8),))
             self._parse1 = self._parse_string
             return i
         if c in ESC_STRING:
-            self._curtoken += six.int2byte(ESC_STRING[c])
+            self._curtoken += bytes((ESC_STRING[c],))
         self._parse1 = self._parse_string
         return i+1
 
@@ -490,7 +485,7 @@ class PSBaseParser(object):
             return len(s)
         j = m.start(0)
         self._curtoken += s[i:j]
-        token = HEX_PAIR.sub(lambda m: six.int2byte(int(m.group(0), 16)), SPC.sub(b'', self._curtoken))
+        token = HEX_PAIR.sub(lambda m: bytes((int(m.group(0), 16),)), SPC.sub(b'', self._curtoken))
         self._add_token(token)
         self._parse1 = self._parse_main
         return j
@@ -573,7 +568,7 @@ class PSStackParser(PSBaseParser):
         while not self.results:
             (pos, token) = self.nexttoken()
             #print (pos,token), (self.curtype, self.curstack)
-            if isinstance(token, (six.integer_types, float, bool, six.string_types, six.binary_type, PSLiteral)):
+            if isinstance(token, (int, float, bool, str, bytes, PSLiteral)):
                 # normal token
                 self.push((pos, token))
             elif token == KEYWORD_ARRAY_BEGIN:

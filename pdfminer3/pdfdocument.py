@@ -3,7 +3,7 @@ import re
 import struct
 import logging
 
-import six # Python 2+3 compatibility
+
 try:
     import hashlib as md5
 except ImportError:
@@ -111,10 +111,7 @@ class PDFXRef(PDFBaseXRef):
             if len(f) != 2:
                 raise PDFNoValidXRef('Trailer not found: %r: line=%r' % (parser, line))
             try:
-                if six.PY2:
-                    (start, nobjs) = list(map(int, f))
-                else:
-                    (start, nobjs) = list(map(int, f))
+                (start, nobjs) = map(int, f)
             except ValueError:
                 raise PDFNoValidXRef('Invalid line: %r: line=%r' % (parser, line))
             for objid in range(start, start+nobjs):
@@ -128,7 +125,7 @@ class PDFXRef(PDFBaseXRef):
                 (pos, genno, use) = f
                 if use != b'n':
                     continue
-                self.offsets[objid] = (None, int(pos) if six.PY2 else int(pos), int(genno))
+                self.offsets[objid] = (None, int(pos), int(genno))
         log.info('xref objects: %r', self.offsets)
         self.load_trailer(parser)
         return
@@ -151,7 +148,7 @@ class PDFXRef(PDFBaseXRef):
         return self.trailer
 
     def get_objids(self):
-        return six.iterkeys(self.offsets)
+        return self.offsets.keys()
 
     def get_pos(self, objid):
         try:
@@ -181,8 +178,7 @@ class PDFXRefFallback(PDFXRef):
                 self.load_trailer(parser)
                 log.info('trailer: %r', self.trailer)
                 break
-            if six.PY3:
-                line=line.decode('latin-1') #default pdf encoding
+            line=line.decode('latin-1') #default pdf encoding
             m = self.PDFOBJ_CUE.match(line)
             if not m:
                 continue
@@ -344,7 +340,7 @@ class PDFStandardSecurityHandler(object):
             hash.update(self.docid[0])  # 3
             result = ARC4.new(key).encrypt(hash.digest())  # 4
             for i in range(1, 20):  # 5
-                k = b''.join(six.int2byte(c ^ i) for c in six.iterbytes(key))
+                k = b''.join(bytes((c^i,)) for c in key)
                 result = ARC4.new(k).encrypt(result)
             result += result  # 6
             return result
@@ -404,7 +400,7 @@ class PDFStandardSecurityHandler(object):
         else:
             user_password = self.o
             for i in range(19, -1, -1):
-                k = b''.join(six.int2byte(c ^ i) for c in six.iterbytes(key))
+                k = b''.join(bytes((c^i,)) for c in key)
                 user_password = ARC4.new(k).decrypt(user_password)
         return self.authenticate_user_password(user_password)
 
@@ -780,7 +776,7 @@ class PDFDocument(object):
         else:
             raise PDFNoValidXRef('Unexpected EOF')
         log.info('xref found: pos=%r', prev)
-        return int(prev) if six.PY2 else int(prev)
+        return int(prev)
 
     # read xref table
     def read_xref_from(self, parser, start, xrefs):

@@ -28,8 +28,6 @@ from .utils import nunpack
 from .utils import choplist
 from .utils import isnumber
 
-import six #Python 2+3 compatibility
-
 
 def get_widths(seq):
     widths = {}
@@ -692,10 +690,10 @@ class PDFCIDFont(PDFFont):
         if self.vertical:
             # writing mode: vertical
             widths = get_widths2(list_value(spec.get('W2', [])))
-            self.disps = dict((cid, (vx, vy)) for (cid, (_, (vx, vy))) in six.iteritems(widths))
+            self.disps = dict((cid, (vx, vy)) for (cid, (_, (vx, vy))) in widths.items())
             (vy, w) = spec.get('DW2', [880, -1000])
             self.default_disp = (None, vy)
-            widths = dict((cid, w) for (cid, (w, _)) in six.iteritems(widths))
+            widths = dict((cid, w) for (cid, (w, _)) in widths.items())
             default_width = w
         else:
             # writing mode: horizontal

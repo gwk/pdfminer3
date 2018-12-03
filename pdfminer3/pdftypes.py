@@ -13,7 +13,6 @@ from . import settings
 from .utils import apply_png_predictor
 from .utils import isnumber
 
-import six #Python 2+3 compatibility
 
 log = logging.getLogger(__name__)
 
@@ -109,7 +108,7 @@ def decipher_all(decipher, objid, genno, x):
     if isinstance(x, list):
         x = [decipher_all(decipher, objid, genno, v) for v in x]
     elif isinstance(x, dict):
-        for (k, v) in six.iteritems(x):
+        for (k, v) in x.items():
             x[k] = decipher_all(decipher, objid, genno, v)
     return x
 
@@ -144,7 +143,7 @@ def num_value(x):
 
 def str_value(x):
     x = resolve1(x)
-    if not isinstance(x, six.binary_type):
+    if not isinstance(x, bytes):
         if settings.STRICT:
             raise PDFTypeError('String required: %r' % x)
         return ''

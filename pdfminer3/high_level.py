@@ -4,7 +4,6 @@ Functions that encapsulate "usual" use-cases for pdfminer3, for use making
 bundled scripts and for using pdfminer3 as a module for routine tasks.
 """
 
-import six
 import sys
 
 from .pdfdocument import PDFDocument
@@ -44,8 +43,6 @@ def extract_text_to_fp(inf, outfp,
     debug: Output more logging data
     disable_caching: Does what it says on the tin
     """
-    if six.PY2 and sys.stdin.encoding:
-        password = password.decode(sys.stdin.encoding)
 
     imagewriter = None
     if output_dir:
@@ -57,7 +54,7 @@ def extract_text_to_fp(inf, outfp,
         device = TextConverter(rsrcmgr, outfp, codec=codec, laparams=laparams,
                                imagewriter=imagewriter)
 
-    if six.PY3 and outfp == sys.stdout:
+    if outfp == sys.stdout:
         outfp = sys.stdout.buffer
 
     if output_type == 'xml':

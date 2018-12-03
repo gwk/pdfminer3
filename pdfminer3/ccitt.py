@@ -13,17 +13,6 @@
 import sys
 import array
 
-import six  #Python 2+3 compatibility
-
-if six.PY3:
-    def get_bytes(data):
-        for byte in data:
-            yield byte
-else:
-    def get_bytes(data):
-        for char in data:
-            yield ord(char)
-
 
 ##  BitParser
 ##
@@ -50,7 +39,7 @@ class BitParser(object):
         return
 
     def feedbytes(self, data):
-        for byte in get_bytes(data):
+        for byte in data:
             for m in (128, 64, 32, 16, 8, 4, 2, 1):
                 self._parse_bit(byte & m)
         return
