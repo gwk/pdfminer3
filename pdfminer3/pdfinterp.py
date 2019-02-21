@@ -26,7 +26,7 @@ from .pdffont import PDFTrueTypeFont
 from .pdffont import PDFType3Font
 from .pdffont import PDFCIDFont
 from .pdfcolor import PDFColorSpace
-from .pdfcolor import PREDEFINED_COLORSPACE
+from .pdfcolor import PREDEFINED_COLORSPACE, LITERAL_DEVICE_GRAY, LITERAL_DEVICE_RGB, LITERAL_DEVICE_CMYK
 from .utils import choplist
 from .utils import mult_matrix
 from .utils import MATRIX_IDENTITY
@@ -586,37 +586,37 @@ class PDFPageInterpreter(object):
     # setgray-stroking
     def do_G(self, gray):
         self.graphicstate.scolor = gray
-        #self.do_CS(LITERAL_DEVICE_GRAY)
+        self.do_CS(LITERAL_DEVICE_GRAY)
         return
 
     # setgray-non-stroking
     def do_g(self, gray):
         self.graphicstate.ncolor = gray
-        #self.do_cs(LITERAL_DEVICE_GRAY)
+        self.do_cs(LITERAL_DEVICE_GRAY)
         return
 
     # setrgb-stroking
     def do_RG(self, r, g, b):
-        self.graphicstate.color = (r, g, b)
-        #self.do_CS(LITERAL_DEVICE_RGB)
+        self.graphicstate.scolor = (r, g, b)
+        self.do_CS(LITERAL_DEVICE_RGB)
         return
 
     # setrgb-non-stroking
     def do_rg(self, r, g, b):
-        self.graphicstate.color = (r, g, b)
-        #self.do_cs(LITERAL_DEVICE_RGB)
+        self.graphicstate.ncolor = (r, g, b)
+        self.do_cs(LITERAL_DEVICE_RGB)
         return
 
     # setcmyk-stroking
     def do_K(self, c, m, y, k):
-        self.graphicstate.color = (c, m, y, k)
-        #self.do_CS(LITERAL_DEVICE_CMYK)
+        self.graphicstate.scolor = (c, m, y, k)
+        self.do_CS(LITERAL_DEVICE_CMYK)
         return
 
     # setcmyk-non-stroking
     def do_k(self, c, m, y, k):
-        self.graphicstate.color = (c, m, y, k)
-        #self.do_cs(LITERAL_DEVICE_CMYK)
+        self.graphicstate.ncolor = (c, m, y, k)
+        self.do_cs(LITERAL_DEVICE_CMYK)
         return
 
     # setcolor
