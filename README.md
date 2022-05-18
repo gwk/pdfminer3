@@ -2,6 +2,11 @@ pdfminer3
 ============
 
 gwk/pdfminer3 is a Python 3.7 fork of pdfminer/pdfminer.six.
+It was forked in December of 2018 to experiment with a Python 3 version of the library.
+Since then the original has migrated to Python 3 only and this fork is now very stale.
+However there might be a few small fixes here that could still be applicable to the community version.
+
+This fork is kept for archive purposes only.
 
 pdfminer3 is a tool for extracting information from PDF documents.
 Unlike other PDF-related tools, it focuses entirely on getting
